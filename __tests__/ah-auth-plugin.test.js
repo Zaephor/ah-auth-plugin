@@ -42,8 +42,8 @@ describe('ah-auth-plugin', () => {
     })
   })
 
-  it('should validate the user migrations were loaded/run')
-  it('should validate the user model was loaded')
+  it('TODO: should validate the user migrations were loaded/run')
+  it('TODO: should validate the user model was loaded')
 
   // Create and retrieve user check directly from model
   let dummyUser = {email: 'test@domain.com', password: 'password123'}

@@ -24,7 +24,8 @@ module.exports = function (Model) {
 
     async $beforeInsert (queryContext) {
       await super.$beforeInsert(queryContext)
-      if (this.uuid === undefined) {
+      this.email = this.email.toLowerCase() // All emails should be stored lowercase
+      if (this.uuid === undefined) { // Not all databases seem to have a method for autocreating UUIDs in a column
         this.uuid = uuidv4()
       }
     }
