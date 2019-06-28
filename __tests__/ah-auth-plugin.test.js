@@ -8,13 +8,17 @@ const actionhero = new ActionHero.Process()
 process.env.PROJECT_ROOT = path.join(require.resolve('actionhero'), '..')
 let knexConfig = require(path.join(require.resolve('@zaephor-ah/ah-knex-plugin'), '..', 'config', 'ah-knex-plugin.js'))
 let knexEnv = (process.env.NODE_ENV && knexConfig[process.env.NODE_ENV]) ? process.env.NODE_ENV : 'default'
+let sessionConfig = require(path.join(require.resolve('@zaephor-ah/ah-session-plugin'), '..', 'config', 'ah-session-plugin.js'))
+let sessionEnv = (process.env.NODE_ENV && sessionConfig[process.env.NODE_ENV]) ? process.env.NODE_ENV : 'default'
 let api
 
 describe('ah-auth-plugin', () => {
   let configChanges = {
     'ah-knex-plugin': knexConfig[knexEnv]['ah-knex-plugin'](ActionHero.api),
+    'ah-session-plugin': sessionConfig[sessionEnv]['ah-session-plugin'](ActionHero.api),
     // 'ah-objection-plugin': config[environment]['ah-objection-plugin'](ActionHero.api),
     plugins: {
+      'ah-session-plugin': {path: path.join(require.resolve('@zaephor-ah/ah-session-plugin'), '..')},
       'ah-knex-plugin': {path: path.join(require.resolve('@zaephor-ah/ah-knex-plugin'), '..')},
       'ah-objection-plugin': {path: path.join(require.resolve('@zaephor-ah/ah-objection-plugin'), '..')},
       'ah-auth-plugin': {path: path.join(__dirname, '..')}
@@ -36,7 +40,7 @@ describe('ah-auth-plugin', () => {
   })
 
   // Generic module loaded check
-  Array('knex', 'objection', 'models').forEach(function (attribute) {
+  Array('knex', 'objection', 'models', 'auth').forEach(function (attribute) {
     it(attribute + ' should be in api scope', async () => {
       expect(api[attribute]).to.exist
     })
@@ -60,4 +64,8 @@ describe('ah-auth-plugin', () => {
     expect(await userObject.verifyPassword(dummyUser.password)).to.equal(true)
     expect(userObject.uuid).to.equal(dummyUser.uuid)
   })
+
+  it('TODO: validate that data.auth is false if no session')
+  it('TODO: validate that data.auth is contains the user if theres a session')
+
 })

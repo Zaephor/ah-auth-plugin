@@ -29,5 +29,7 @@ module.exports = function (Model) {
         this.uuid = uuidv4()
       }
     }
+    // TODO: see if password hash can be filtered out via $formatJson
+    // TODO: check if obj.verifyPassword still works when the password is filtered
   }
 }
