@@ -20,7 +20,9 @@
     ".index.js",
     ".scripts",
     "config",
-    "initializers"
+    "initializers",
+    "migrations",
+    "models"
   ],
   "scripts": {
     "postinstall": "node .scripts/postinstall.js",
