@@ -39,7 +39,8 @@
   },
   "dependencies": {
     "objection-password": "^2.0.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "validator": "^11.0.0"
   },
   "devDependencies": {
     "@zaephor-ah/ah-knex-plugin": "^0.1.1",
