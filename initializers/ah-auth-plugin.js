@@ -29,10 +29,22 @@ module.exports = class sessionInitializer extends Initializer {
               data.auth = false
             }
           }
+        },
+        'auth:logged_in': {
+          name: 'auth:logged_in',
+          global: false,
+          priority: 1002,
+          preProcessor: async (data) => {
+            if (!data.auth) {
+              data.connection.setStatusCode(403)
+              throw new Error('Not logged in.')
+            }
+          }
         }
       }
     }
     api.actions.addMiddleware(api.auth.middleware['auth:inject'])
+    api.actions.addMiddleware(api.auth.middleware['auth:logged_in'])
     api.routes.registerRoute('post', '/user/register', 'user:register')
     api.routes.registerRoute('post', '/user/login', 'user:login')
   }
