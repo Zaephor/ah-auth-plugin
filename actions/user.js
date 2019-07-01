@@ -47,7 +47,7 @@ exports.UserRegister = class UserRegister extends Action {
         password: data.params.password
       })
     } catch (e) {
-      data.response.error = e
+      data.response.error = e // TODO: set better error language
     }
     if (result.uuid && validator.isUUID(result.uuid)) {
       data.response.success = true
@@ -103,7 +103,7 @@ exports.UserLogin = class UserLogin extends Action {
         data.response.success = true
       }
     } catch (e) {
-      data.response.error = e
+      data.response.error = e // TODO: set better error language
     }
   }
 }
