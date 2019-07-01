@@ -91,9 +91,9 @@ exports.UserLogin = class UserLogin extends Action {
       if (!result.email || result.email !== data.params.email || !validator.isUUID(result.uuid) || !(await result.verifyPassword(data.params.password))) {
         throw new Error('Credentials invalid.')
       } else {
-        data.response.success = true
         let userSession = await api.session.create(data.connection, result.uuid) // Create a new user session, middleware will load this globally as data.session
         data.response.session = userSession
+        data.response.success = true
       }
     } catch (e) {
       data.response.error = e
