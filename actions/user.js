@@ -8,6 +8,7 @@ exports.UserRegister = class UserRegister extends Action {
     this.name = 'user:register'
     this.version = 1
     this.description = 'New user registration'
+    this.tags = ['auth']
     this.inputs = {
       domain: {
         formatter: (param, connection, actionTemplate) => {
@@ -56,6 +57,7 @@ exports.UserLogin = class UserLogin extends Action {
     this.name = 'user:login'
     this.version = 1
     this.description = 'User login'
+    this.tags = ['auth']
     this.inputs = {
       domain: {
         default: (param) => { return '' },
@@ -90,6 +92,8 @@ exports.UserLogin = class UserLogin extends Action {
         throw new Error('Credentials invalid.')
       } else {
         data.response.success = true
+        let userSession = await api.session.create(data.connection, result.uuid) // Create a new user session, middleware will load this globally as data.session
+        data.response.session = userSession
       }
     } catch (e) {
       data.response.error = e
