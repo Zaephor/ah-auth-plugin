@@ -9,6 +9,14 @@ exports.UserRegister = class UserRegister extends Action {
     this.version = 1
     this.description = 'New user registration'
     this.inputs = {
+      domain: {
+        formatter: (param, connection, actionTemplate) => {
+          return ('' + param).toLowerCase()
+        },
+        validator: (param, connection, actionTemplate) => {
+        },
+        required: false
+      },
       email: {
         formatter: (param, connection, actionTemplate) => {
           return ('' + param).toLowerCase()
@@ -20,7 +28,6 @@ exports.UserRegister = class UserRegister extends Action {
       },
       password: {
         validator: (param, connection, actionTemplate) => {
-          if (!validator.isASCII(param)) { throw new Error(`Unsupported password characters.`) }
           if (param.length < 8) { throw new Error(`Password length too short.`) }
           if (param.length > 50) { throw new Error(`Password length too long.`) }
         },
@@ -50,6 +57,15 @@ exports.UserLogin = class UserLogin extends Action {
     this.version = 1
     this.description = 'User login'
     this.inputs = {
+      domain: {
+        default: (param) => { return '' },
+        formatter: (param, connection, actionTemplate) => {
+          return ('' + param).toLowerCase()
+        },
+        validator: (param, connection, actionTemplate) => {
+        },
+        required: false
+      },
       email: {
         formatter: (param, connection, actionTemplate) => {
           return ('' + param).toLowerCase()
@@ -69,7 +85,7 @@ exports.UserLogin = class UserLogin extends Action {
     data.response.success = false
     let result
     try {
-      result = await api.models.user.query().where('email', data.params.email).limit(1).first()
+      result = await api.models.user.query().where({ domain: data.params.domain, email: data.params.email }).limit(1).first()
       if (!result.email || result.email !== data.params.email || !validator.isUUID(result.uuid) || !(await result.verifyPassword(data.params.password))) {
         throw new Error('Credentials invalid.')
       } else {
