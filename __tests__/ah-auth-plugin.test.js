@@ -65,6 +65,13 @@ describe('ah-auth-plugin', () => {
     expect(userObject.uuid).to.equal(dummyUser.uuid)
   })
 
+  Array('user:reigster', 'user:login').forEach(function (attribute) {
+    it('TODO: validate that action ' + attribute + ' is functioning')
+  })
+  Array('/user/register', '/user/login').forEach(function (attribute) {
+    it('TODO: validate that route ' + attribute + ' is functioning')
+  })
+
   it('TODO: validate that data.auth is false if no session')
   it('TODO: validate that data.auth is contains the user if theres a session')
 
