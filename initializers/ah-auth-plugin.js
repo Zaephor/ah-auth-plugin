@@ -18,7 +18,7 @@ module.exports = class sessionInitializer extends Initializer {
     if (api.config && !api.config['ah-auth-plugin']) {
       api.config['ah-auth-plugin'] = require(path.join(api.config.plugins['ah-auth-plugin'].path, 'config', 'ah-auth-plugin.js'))[process.env.NODE_ENV || 'default']['ah-auth-plugin'](api)
     }
-    let config = api.config['ah-auth-plugin']
+    const config = api.config['ah-auth-plugin']
 
     api.log('[' + this.loadPriority + '] ' + this.name + ': Initializing')
     api.auth = {
