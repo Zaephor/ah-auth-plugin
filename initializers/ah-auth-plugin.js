@@ -1,9 +1,9 @@
 // Duplicated and derived from https://github.com/actionhero/actionhero-angular-bootstrap-cors-csrf/blob/master/initializers/session.js
 'use strict'
 const { Initializer, api } = require('actionhero')
-// const path = require('path')
+const path = require('path')
 
-// let config = ((api.config && api.config['ah-auth-plugin'])) ? api.config['ah-auth-plugin'] : require(path.join(__dirname, '..', 'config', 'ah-auth-plugin.js'))[process.env.NODE_ENV || 'development']['ah-auth-plugin'](api)
+// let config = ((api.config && api.config['ah-auth-plugin'])) ? api.config['ah-auth-plugin'] : require(path.join(api.config.plugins['ah-auth-plugin'].path, 'config', 'ah-auth-plugin.js'))[process.env.NODE_ENV || 'default']['ah-auth-plugin'](api)
 
 module.exports = class sessionInitializer extends Initializer {
   constructor () {
@@ -15,6 +15,11 @@ module.exports = class sessionInitializer extends Initializer {
   }
 
   async initialize () {
+    if (api.config && !api.config['ah-auth-plugin']) {
+      api.config['ah-auth-plugin'] = require(path.join(api.config.plugins['ah-auth-plugin'].path, 'config', 'ah-auth-plugin.js'))[process.env.NODE_ENV || 'default']['ah-auth-plugin'](api)
+    }
+    let config = api.config['ah-auth-plugin']
+
     api.log('[' + this.loadPriority + '] ' + this.name + ': Initializing')
     api.auth = {
       middleware: {
@@ -45,7 +50,9 @@ module.exports = class sessionInitializer extends Initializer {
     }
     api.actions.addMiddleware(api.auth.middleware['auth:inject'])
     api.actions.addMiddleware(api.auth.middleware['auth:logged_in'])
-    api.routes.registerRoute('post', '/user/register', 'user:register')
-    api.routes.registerRoute('post', '/user/login', 'user:login')
+    if (config.localAuth) {
+      api.routes.registerRoute('post', '/user/register', 'user:register')
+      api.routes.registerRoute('post', '/user/login', 'user:login')
+    }
   }
 }
