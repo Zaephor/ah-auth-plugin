@@ -3,8 +3,6 @@
 const { Initializer, api } = require('actionhero')
 const path = require('path')
 
-// let config = ((api.config && api.config['ah-auth-plugin'])) ? api.config['ah-auth-plugin'] : require(path.join(api.config.plugins['ah-auth-plugin'].path, 'config', 'ah-auth-plugin.js'))[process.env.NODE_ENV || 'default']['ah-auth-plugin'](api)
-
 module.exports = class sessionInitializer extends Initializer {
   constructor () {
     super()
@@ -15,10 +13,10 @@ module.exports = class sessionInitializer extends Initializer {
   }
 
   async initialize () {
-    if (api.config && !api.config['ah-auth-plugin']) {
-      api.config['ah-auth-plugin'] = require(path.join(api.config.plugins['ah-auth-plugin'].path, 'config', 'ah-auth-plugin.js'))[process.env.NODE_ENV || 'default']['ah-auth-plugin'](api)
+    if (api.config && !api.config[this.name]) {
+      api.config[this.name] = require(path.join(api.config.plugins[this.name].path, 'config', this.name + '.js'))[process.env.NODE_ENV || 'default'][this.name](api)
     }
-    const config = api.config['ah-auth-plugin']
+    const config = api.config[this.name]
 
     api.log('[' + this.loadPriority + '] ' + this.name + ': Initializing')
     api.auth = {
