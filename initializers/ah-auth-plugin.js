@@ -48,8 +48,10 @@ module.exports = class sessionInitializer extends Initializer {
     }
     api.actions.addMiddleware(api.auth.middleware['auth:inject'])
     api.actions.addMiddleware(api.auth.middleware['auth:logged_in'])
-    if (config.localAuth) {
+    if (config.localAuth.register === true) {
       api.routes.registerRoute('post', '/user/register', 'user:register')
+    }
+    if (config.localAuth.login === true) {
       api.routes.registerRoute('post', '/user/login', 'user:login')
     }
   }

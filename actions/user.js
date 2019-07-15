@@ -15,7 +15,7 @@ exports.UserRegister = class UserRegister extends Action {
           return ('' + param).toLowerCase()
         },
         validator: (param, connection, actionTemplate) => {
-          if (param && api.config['ah-auth-plugin'].domain !== true) { throw new Error(`Domain scoped users are disabled.`) }
+          if (param && api.config['ah-auth-plugin'].domain.enabled !== true) { throw new Error(`Domain scoped users are disabled.`) }
         },
         required: false
       },
@@ -24,7 +24,7 @@ exports.UserRegister = class UserRegister extends Action {
           return ('' + param).toLowerCase()
         },
         validator: (param, connection, actionTemplate) => {
-          if (param && api.config['ah-auth-plugin'].localAuth !== true) { throw new Error(`Localized authentication has been disabled.`) }
+          if (param && api.config['ah-auth-plugin'].localAuth.register !== true) { throw new Error(`Localized authentication has been disabled.`) }
           if (!validator.isEmail(param)) { throw new Error(`Email format is invalid.`) }
         },
         required: true
@@ -71,7 +71,7 @@ exports.UserLogin = class UserLogin extends Action {
           return ('' + param).toLowerCase()
         },
         validator: (param, connection, actionTemplate) => {
-          if (param && api.config['ah-auth-plugin'].domain !== true) { throw new Error(`Domain scoped users are disabled.`) }
+          if (param && api.config['ah-auth-plugin'].domain.enabled !== true) { throw new Error(`Domain scoped users are disabled.`) }
         },
         required: false
       },
@@ -80,7 +80,7 @@ exports.UserLogin = class UserLogin extends Action {
           return ('' + param).toLowerCase()
         },
         validator: (param, connection, actionTemplate) => {
-          if (param && api.config['ah-auth-plugin'].localAuth !== true) { throw new Error(`Localized authentication has been disabled.`) }
+          if (param && api.config['ah-auth-plugin'].localAuth.login !== true) { throw new Error(`Localized authentication has been disabled.`) }
           if (!validator.isEmail(param)) { throw new Error(`Email format is invalid.`) }
         },
         required: true

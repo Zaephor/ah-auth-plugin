@@ -3,10 +3,15 @@
 exports['default'] = {
   'ah-auth-plugin': (api) => {
     return {
-      // domain: enable or disables domain-scoped authentication
-      domain: true,
-      // localAuth: enables or disables localized authentication
-      localAuth: true
+      // domain: domain-scoped authentication
+      domain: {
+        enabled: true
+      },
+      // localAuth: localized authentication
+      localAuth: {
+        register: true,
+        login: true
+      }
     }
   }
 }
@@ -14,10 +19,15 @@ exports['default'] = {
 exports['test'] = {
   'ah-auth-plugin': (api) => {
     return {
-      // domain: enable or disables domain-scoped authentication
-      domain: true,
-      // localAuth: enables or disables localized authentication
-      localAuth: true
+      // domain: domain-scoped authentication
+      domain: {
+        enabled: true
+      },
+      // localAuth: localized authentication
+      localAuth: {
+        register: true,
+        login: true
+      }
     }
   }
 }
