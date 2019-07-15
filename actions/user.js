@@ -9,8 +9,21 @@ exports.UserRegister = class UserRegister extends Action {
     this.version = 1
     this.description = 'New user registration'
     this.tags = ['auth']
+    this.middleware = ['auth:logged_out']
     this.inputs = {
       domain: {
+        default: (param, connection) => {
+          if (api.config['ah-auth-plugin'].domain.enabled !== true) {
+            return undefined
+          }
+          let domain
+          // Auto add the requesting domain
+          // TODO: Check if this is a valid approach, and how to handle socket and websocket
+          if (connection.connection.type === 'web') {
+            domain = connection.connection.rawConnection.req.headers.host.split(':')[0]
+          }
+          return domain
+        },
         formatter: (param, connection, actionTemplate) => {
           return ('' + param).toLowerCase()
         },
@@ -64,9 +77,21 @@ exports.UserLogin = class UserLogin extends Action {
     this.version = 1
     this.description = 'User login'
     this.tags = ['auth']
+    this.middleware = ['auth:logged_out']
     this.inputs = {
       domain: {
-        default: (param) => { return '' },
+        default: (param, connection) => {
+          if (api.config['ah-auth-plugin'].domain.enabled !== true) {
+            return undefined
+          }
+          let domain
+          // Auto add the requesting domain
+          // TODO: Check if this is a valid approach, and how to handle socket and websocket
+          if (connection.connection.type === 'web') {
+            domain = connection.connection.rawConnection.req.headers.host.split(':')[0]
+          }
+          return domain
+        },
         formatter: (param, connection, actionTemplate) => {
           return ('' + param).toLowerCase()
         },
@@ -95,10 +120,9 @@ exports.UserLogin = class UserLogin extends Action {
     data.response.success = false
     let result
     try {
-      result = await api.models.user.query().where({
-        domain: data.params.domain,
-        email: data.params.email
-      }).limit(1).first()
+      const search = { email: data.params.email }
+      if (data.params.domain) { search.domain = data.params.domain }
+      result = await api.models.user.query().where(search).limit(1).first()
       if (!result.email || result.email !== data.params.email || !validator.isUUID(result.uuid) || !(await result.verifyPassword(data.params.password))) {
         throw new Error('Credentials invalid.')
       } else {
