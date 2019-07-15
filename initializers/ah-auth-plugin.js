@@ -39,8 +39,23 @@ module.exports = class sessionInitializer extends Initializer {
           priority: 1002,
           preProcessor: async (data) => {
             if (!data.auth) {
-              data.connection.setStatusCode(403)
+              if (data.connection.type === 'web') {
+                data.connection.setStatusCode(403)
+              }
               throw new Error('Not logged in.')
+            }
+          }
+        },
+        'auth:logged_out': {
+          name: 'auth:logged_out',
+          global: false,
+          priority: 1002,
+          preProcessor: async (data) => {
+            if (data.auth) {
+              if (data.connection.type === 'web') {
+                data.connection.setStatusCode(403)
+              }
+              throw new Error('Already logged in.')
             }
           }
         }
@@ -48,6 +63,7 @@ module.exports = class sessionInitializer extends Initializer {
     }
     api.actions.addMiddleware(api.auth.middleware['auth:inject'])
     api.actions.addMiddleware(api.auth.middleware['auth:logged_in'])
+    api.actions.addMiddleware(api.auth.middleware['auth:logged_out'])
     if (config.localAuth.register === true) {
       api.routes.registerRoute('post', '/user/register', 'user:register')
     }
