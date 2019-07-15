@@ -62,9 +62,14 @@ exports.UserRegister = class UserRegister extends Action {
         password: data.params.password
       })
     } catch (e) {
-      data.response.error = e // TODO: set better error language
+      if (e.errno === 19) {
+        api.log({ e }, 'debug')
+        data.response.error = 'User could not be created.'
+      } else {
+        data.response.error = e // TODO: set better error language
+      }
     }
-    if (result.uuid && validator.isUUID(result.uuid)) {
+    if (result && result.uuid && validator.isUUID(result.uuid)) {
       data.response.success = true
     }
   }
