@@ -1,6 +1,6 @@
 {
   "name": "@zaephor-ah/ah-auth-plugin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "> TODO: description",
   "author": "Zaephor <Zaephor@users.noreply.github.com>",
   "homepage": "https://github.com/Zaephor/ah-plugins#readme",
@@ -33,8 +33,8 @@
   },
   "peerDependencies": {
     "@zaephor-ah/ah-knex-plugin": "^0.1.1",
-    "@zaephor-ah/ah-session-plugin": "^0.1.0",
     "@zaephor-ah/ah-objection-plugin": "^0.0.2",
+    "@zaephor-ah/ah-session-plugin": "^0.1.0",
     "actionhero": ">=19.1.4"
   },
   "dependencies": {
@@ -43,9 +43,9 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
-    "@zaephor-ah/ah-knex-plugin": "^0.1.1",
-    "@zaephor-ah/ah-session-plugin": "^0.1.0",
-    "@zaephor-ah/ah-objection-plugin": "^0.0.2",
+    "@zaephor-ah/ah-knex-plugin": "^0.1.2",
+    "@zaephor-ah/ah-objection-plugin": "^0.0.3",
+    "@zaephor-ah/ah-session-plugin": "^0.1.1",
     "actionhero": ">=19.1.4"
   }
 }
