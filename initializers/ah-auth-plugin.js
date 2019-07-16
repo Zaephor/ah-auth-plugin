@@ -27,7 +27,7 @@ module.exports = class sessionInitializer extends Initializer {
           priority: 1001,
           preProcessor: async (data) => {
             if (data.session && data.session.user) {
-              data.auth = await api.models.user.query().where('uuid', data.session.user).limit(1).first()
+              data.auth = JSON.parse(JSON.stringify(await api.models.user.query().where('uuid', data.session.user).limit(1).first()))
             } else {
               data.auth = false
             }
