@@ -58,6 +58,7 @@
     "husky": "latest",
     "lint-staged": "^9.2.0",
     "mocha": "latest",
+    "sqlite3": "^4.0.9",
     "standard": "latest",
     "standard-version": "^6.0.1"
   },
