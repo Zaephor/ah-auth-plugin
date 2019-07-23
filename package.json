@@ -29,15 +29,16 @@
     "update-dep": "npx -p npm-check-updates ncu -u && npm install",
     "postinstall": "node .scripts/postinstall.js",
     "pretest": "standard",
+    "release": "standard-version",
     "test": "NODE_ENV=test mocha --colors --reporter spec --exit __tests__/*.js"
   },
   "engines": {
     "node": ">=10.0.0"
   },
   "peerDependencies": {
-    "@zaephor-ah/ah-knex-plugin": "^0.1.2",
-    "@zaephor-ah/ah-objection-plugin": "^0.0.3",
-    "@zaephor-ah/ah-session-plugin": "^0.1.1",
+    "@zaephor-ah/ah-knex-plugin": "^0.2.2",
+    "@zaephor-ah/ah-objection-plugin": "^0.0.7",
+    "@zaephor-ah/ah-session-plugin": "^0.2.2",
     "actionhero": ">=19.2.1"
   },
   "dependencies": {
@@ -49,15 +50,16 @@
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@commitlint/prompt-cli": "^8.1.0",
-    "@zaephor-ah/ah-knex-plugin": "^0.1.2",
-    "@zaephor-ah/ah-objection-plugin": "^0.0.3",
-    "@zaephor-ah/ah-session-plugin": "^0.1.1",
+    "@zaephor-ah/ah-knex-plugin": "^0.2.2",
+    "@zaephor-ah/ah-objection-plugin": "^0.0.7",
+    "@zaephor-ah/ah-session-plugin": "^0.2.2",
     "actionhero": ">=19.2.1",
     "chai": "latest",
     "husky": "latest",
     "lint-staged": "^9.2.0",
     "mocha": "latest",
-    "standard": "latest"
+    "standard": "latest",
+    "standard-version": "^6.0.1"
   },
   "standard": {
     "ignore": [
