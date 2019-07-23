@@ -1,4 +1,4 @@
-# `@zaephor-ah/ah-knex-plugin`
+# `@zaephor-ah/ah-auth-plugin`
 
 > TODO: description
 
