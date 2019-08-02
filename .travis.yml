@@ -11,9 +11,9 @@ stages:
 - name: update-deps
   if: (branch = master) AND (type = cron)
 - name: test
-  if: (branch = master) AND (type != cron)
+  if: (type != cron)
 - name: deploy-npm
-  if: (tag =~ ^v) AND (branch = master)
+  if: (tag =~ ^v)
 
 jobs:
   include:

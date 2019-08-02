@@ -3,7 +3,7 @@
   "version": "0.3.1",
   "description": "> TODO: description",
   "author": "Zaephor <Zaephor@users.noreply.github.com>",
-  "homepage": "https://github.com/Zaephor/ah-plugins#readme",
+  "homepage": "https://github.com/Zaephor/ah-auth-plugin#readme",
   "license": "ISC",
   "publishConfig": {
     "access": "public"
@@ -11,10 +11,10 @@
   "main": ".index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zaephor/ah-plugins.git"
+    "url": "git+https://github.com/Zaephor/ah-auth-plugin.git"
   },
   "bugs": {
-    "url": "https://github.com/Zaephor/ah-plugins/issues"
+    "url": "https://github.com/Zaephor/ah-auth-plugin/issues"
   },
   "files": [
     ".index.js",
