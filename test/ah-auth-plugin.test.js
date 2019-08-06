@@ -47,32 +47,5 @@ describe('ah-auth-plugin', () => {
     })
   })
 
-  it('TODO: should validate the user migrations were loaded/run')
-  it('TODO: should validate the user model was loaded')
-
-  // Create and retrieve user check directly from model
-  const dummyUser = { email: 'test@domain.com', password: 'password123' }
-  it('create user entry', async () => {
-    const newUserObject = await api.models.user.query().insert(dummyUser)
-    expect(newUserObject.email).to.equal(dummyUser.email)
-    expect(await newUserObject.verifyPassword(dummyUser.password)).to.equal(true)
-    expect(newUserObject.uuid).to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
-    dummyUser.uuid = newUserObject.uuid
-  })
-  it('obtain user entry', async () => {
-    const userObject = await api.models.user.query().where('email', dummyUser.email).limit(1).first()
-    expect(userObject.email).to.equal(dummyUser.email)
-    expect(await userObject.verifyPassword(dummyUser.password)).to.equal(true)
-    expect(userObject.uuid).to.equal(dummyUser.uuid)
-  })
-
-  Array('user:reigster', 'user:login').forEach(function (attribute) {
-    it('TODO: validate that action ' + attribute + ' is functioning')
-  })
-  Array('/user/register', '/user/login').forEach(function (attribute) {
-    it('TODO: validate that route ' + attribute + ' is functioning')
-  })
-
-  it('TODO: validate that data.auth is false if no session')
-  it('TODO: validate that data.auth is contains the user if theres a session')
+  it('TODO: figure out further tests')
 })

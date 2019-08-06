@@ -62,7 +62,6 @@
   },
   "standard": {
     "ignore": [
-      "test/**",
       "**/ActionheroWebsocketClient.*"
     ],
     "globals": [
