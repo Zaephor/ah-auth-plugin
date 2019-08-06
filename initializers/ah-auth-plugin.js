@@ -20,16 +20,16 @@ module.exports = class sessionInitializer extends Initializer {
 
     api.log('[' + this.loadPriority + '] ' + this.name + ': Initializing')
     api.auth = {
+      plugins: {},
       middleware: {
         'auth:inject': {
           name: 'auth:inject',
           global: true,
           priority: 1001,
           preProcessor: async (data) => {
-            if (data.session && data.session.user) {
-              data.auth = JSON.parse(JSON.stringify(await api.models.user.query().where('uuid', data.session.user).limit(1).first()))
-            } else {
-              data.auth = false
+            data.auth = false
+            if (data.session && data.session.data && api.auth.plugins[data.session.data.method] && typeof api.auth.plugins[data.session.data.method].lookup === 'function') {
+              data.auth = await api.auth.plugins[data.session.data.method].lookup(data.session.user.id)
             }
           }
         },
