@@ -41,11 +41,12 @@ describe('ah-auth-plugin', () => {
   })
 
   // Generic module loaded check
-  Array('knex', 'objection', 'models', 'auth').forEach(function (attribute) {
+  const scopes = ['knex', 'objection', 'models', 'auth']
+  for (const attribute of scopes) {
     it(attribute + ' should be in api scope', async () => {
       expect(api[attribute]).to.exist
     })
-  })
+  }
 
   it('TODO: figure out further tests')
 })
